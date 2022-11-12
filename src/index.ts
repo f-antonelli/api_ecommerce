@@ -1,12 +1,9 @@
-import express from 'express';
+import dotenv from 'dotenv';
 
-const app = express();
-const PORT = 3000;
+import Server from './models/server';
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send('Hello world');
-});
+dotenv.config();
 
-app.listen(() => {
-  console.log('Server listining on port:', PORT);
-});
+const server = new Server();
+
+server.listen();
