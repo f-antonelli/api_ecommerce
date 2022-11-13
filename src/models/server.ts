@@ -38,15 +38,17 @@ class Server {
 
   routes() {
     this.app.use('/', router);
-  }
 
-  middlewares() {
-    this.app.use(express.json());
-
+    //  If path does not exist.
     this.app.use(() => {
       const error = new HttpError('Could not find this route.', 404);
       throw error;
     });
+  }
+
+  middlewares() {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
   }
 }
 
