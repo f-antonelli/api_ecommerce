@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import HttpError from '../helpers/http-errors';
 import response from '../helpers/response';
-import { Product } from '../interfaces';
+import { Product, UpdateData } from '../interfaces';
 import ProductsDAO from '../models/daos/products.mongo';
 
 const Product = new ProductsDAO();
@@ -49,6 +49,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
     response({
       res,
+      code: 201,
       message: 'Product created!',
       body: {
         result,
@@ -57,6 +58,27 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
   } catch (err) {
     const error = new HttpError('Creating product failed, please try again', 500);
 
+    next(error);
+  }
+};
+
+export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
+  const product: UpdateData = req.body;
+  const { id } = req.params;
+
+  try {
+    await Product.updateById(product, id);
+
+    response({
+      res,
+      code: 201,
+      message: 'Product updated!',
+      body: {
+        id,
+      },
+    });
+  } catch (err) {
+    const error = new HttpError('Something went wrong, could not update product.', 500);
     next(error);
   }
 };

@@ -1,22 +1,28 @@
 import { Router } from 'express';
 
-import { createProduct, getProducts, getProductsById } from '../controllers/products.controller';
+import {
+  createProduct,
+  getProducts,
+  getProductsById,
+  updateProduct,
+} from '../controllers/products.controller';
+import productValidation from '../middleware/product-validaton';
 
 const router = Router();
 
-// GET routes
+// GET
 router.get('/', getProducts);
 router.get('/:id', getProductsById);
 
 // router.use(isAdmin);
 
-// POST routes
-router.post('/', createProduct);
+// POST
+router.post('/', productValidation, createProduct);
 
-// PUT routes
-router.put('/:id');
+// PUT
+router.put('/:id', updateProduct);
 
-// DELETE routes
+// DELETE
 router.delete('/:id');
 
 export default router;

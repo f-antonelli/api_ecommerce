@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 import HttpError from '../helpers/http-errors';
+import { UpdateData } from '../interfaces';
 
 export class MongoDB {
   private model;
@@ -51,6 +52,15 @@ export class MongoDB {
     } catch (err) {
       console.log(err);
       return null;
+    }
+  };
+
+  updateById = async (data: UpdateData, value: string) => {
+    const id = new mongoose.Types.ObjectId(value);
+    try {
+      await this.model.findByIdAndUpdate(id, data, { new: true });
+    } catch (err) {
+      console.log(err);
     }
   };
 }
