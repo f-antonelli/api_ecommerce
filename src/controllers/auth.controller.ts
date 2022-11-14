@@ -8,6 +8,7 @@ import { UserCreate, UserLogin } from '../interfaces';
 import UserDAO from '../models/daos/users.mongo';
 
 const User = new UserDAO();
+
 export const login = (req: Request, res: Response, next: NextFunction) => {
   try {
     const user: UserLogin = req.body;

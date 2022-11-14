@@ -21,11 +21,21 @@ export class MongoDB {
     }
   };
 
+  getAll = async () => {
+    try {
+      const data = await this.model.find();
+
+      return data;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  };
+
   getById = async (value: string) => {
     const id = new mongoose.Types.ObjectId(value);
     try {
-      const data = await this.model.findOne({ id });
-
+      const data = await this.model.findOne(id);
       return data;
     } catch (err) {
       console.log(err);
