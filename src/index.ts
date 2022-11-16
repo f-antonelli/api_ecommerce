@@ -1,9 +1,10 @@
-import dotenv from 'dotenv';
+import app from './app';
+import connection from './database/connection';
 
-import Server from './models/server';
+const port = process.env.PORT || 3001;
 
-dotenv.config();
+app.listen(port, async () => {
+  console.log(`Listening: http://localhost:${port}`);
 
-const server = new Server();
-
-server.listen();
+  await connection();
+});
