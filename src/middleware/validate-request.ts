@@ -10,10 +10,10 @@ export const validateRequest =
         params: req.params,
       });
       next();
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof ZodError) {
         res.status(422);
       }
-      next(error);
+      next(error.message.issues);
     }
   };

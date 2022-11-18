@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { signJwt } from '../../helpers/jwt';
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
-import { createUser } from './auth.service';
-import { CreateUserInput } from './user.schema';
+import { CreateUserInput } from '../user/user.schema';
+import { loginUserSchema } from './auth.schema';
+import { createUser, validatePassword } from './auth.service';
 
 export const createUserHandler = async (
   req: Request<{}, {}, CreateUserInput['body']>,
@@ -25,21 +27,28 @@ export const createUserHandler = async (
   }
 };
 
-// export const login = (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const user: UserLogin = req.body;
-//     const token = jwt.sign(user, process.env.SECRET_KEY as string, { expiresIn: '1h' });
+export const userLoginHandler = async (
+  req: Request<{}, {}, loginUserSchema['body']>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await validatePassword(req.body);
 
-//     response({
-//       res,
-//       message: 'Successful login!',
-//       body: {
-//         user,
-//         token,
-//       },
-//     });
-//   } catch (err) {
-//     const error = new HttpError('Logging in failed, please try again later.', 500);
-//     next(error);
-//   }
-// };
+    if (!user) throw new Error('Invalid email or password');
+
+    const generateToken = signJwt({ ...user }, { expiresIn: process.env.EXPIRES });
+
+    response({
+      res,
+      message: 'Successful login!',
+      body: {
+        user: user.email,
+        token: generateToken,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+};
