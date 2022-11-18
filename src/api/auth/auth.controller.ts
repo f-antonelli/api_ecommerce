@@ -3,12 +3,12 @@ import { NextFunction, Request, Response } from 'express';
 import { signJwt } from '../../helpers/jwt';
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
-import { CreateUserInput } from '../user/user.schema';
+import { createUserSchema } from '../user/user.schema';
 import { loginUserSchema } from './auth.schema';
 import { createUser, validatePassword } from './auth.service';
 
 export const createUserHandler = async (
-  req: Request<{}, {}, CreateUserInput['body']>,
+  req: Request<{}, {}, createUserSchema['body']>,
   res: Response,
   next: NextFunction
 ) => {

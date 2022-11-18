@@ -2,9 +2,9 @@ import { omit } from 'lodash';
 
 import UserModel from '../../database/models/user.model';
 import logger from '../../helpers/logger';
-import { UserInput } from '../../interfaces/user.interface';
+import { User } from '../../interfaces/user.interface';
 
-export async function createUser(input: UserInput) {
+export async function createUser(input: User) {
   try {
     const user = await UserModel.create(input);
 
