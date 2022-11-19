@@ -43,7 +43,7 @@ export const userLoginHandler = async (
       res,
       message: 'Successful login!',
       body: {
-        user: user.email,
+        user,
         token: generateToken,
       },
     });

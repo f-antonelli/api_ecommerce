@@ -13,8 +13,8 @@ export interface ItemCartDocument extends ItemCart, mongoose.Document {
 
 export interface Cart {
   userId: mongoose.Types.ObjectId;
-  products: ItemCart[];
-  total: number;
+  products?: ItemCart[];
+  total?: number;
 }
 
 export interface CartDocument extends Cart, mongoose.Document {

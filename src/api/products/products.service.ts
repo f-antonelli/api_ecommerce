@@ -3,8 +3,8 @@ import { DocumentDefinition, FilterQuery, QueryOptions, UpdateQuery } from 'mong
 import ProductModel from '../../database/models/products.model';
 import { Product, ProductDocument } from '../../interfaces';
 
-export async function createProduct(input: DocumentDefinition<Product>) {
-  return ProductModel.create(input);
+export function createProduct(data: DocumentDefinition<Product>) {
+  return ProductModel.create(data);
 }
 
 export async function findAllProducts() {

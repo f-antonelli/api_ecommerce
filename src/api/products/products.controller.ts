@@ -69,6 +69,8 @@ export async function createProductHandler(
 
     const product = await createProduct({ ...body });
 
+    if (!product) throw new Error('Can not create this product. Please try again');
+
     response({
       res,
       code: 201,

@@ -28,12 +28,12 @@ const params = {
 };
 
 export const getProductSchema = object({ ...params });
-export const CreateProductSchema = object({ ...payload });
+export const createProductSchema = object({ ...payload });
 export const updateProductSchema = object({ ...payload, ...params });
 export const deleteProductSchema = object({ ...params });
 
 // TYPES
-export type createProductSchema = TypeOf<typeof CreateProductSchema>;
+export type createProductSchema = TypeOf<typeof createProductSchema>;
 export type updateProductSchema = TypeOf<typeof updateProductSchema>;
 export type getProductSchema = TypeOf<typeof getProductSchema>;
 export type deleteProductSchema = TypeOf<typeof deleteProductSchema>;

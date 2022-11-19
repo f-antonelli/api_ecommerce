@@ -4,7 +4,7 @@ import { checkAuth } from '../../middleware/check-auth';
 import { validateRequest } from '../../middleware/validate-request';
 import * as ProductHandler from './products.controller';
 import {
-  CreateProductSchema,
+  createProductSchema,
   deleteProductSchema,
   getProductSchema,
   updateProductSchema,
@@ -19,7 +19,7 @@ router.get('/:id', validateRequest(getProductSchema), ProductHandler.getProductB
 // POST
 router.post(
   '/',
-  [checkAuth, validateRequest(CreateProductSchema)],
+  [checkAuth, validateRequest(createProductSchema)],
   ProductHandler.createProductHandler
 );
 

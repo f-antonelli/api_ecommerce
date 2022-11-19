@@ -30,7 +30,7 @@ const cartSchema = new mongoose.Schema<CartDocument>(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    products: { type: [ItemCartSchema], required: true },
+    products: { type: [ItemCartSchema], default: [] },
     total: { type: Number, default: 0 },
   },
   {
