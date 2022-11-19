@@ -1,3 +1,4 @@
+export { CartDocument, ItemCartDocument } from './cart.interface';
 export { EndpointResponse } from './endpoint-response.interface';
 export { ErrorResponse } from './error-response.interface';
 export { MessageResponse } from './message-response.interface';
