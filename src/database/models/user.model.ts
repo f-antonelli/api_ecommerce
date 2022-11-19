@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
-import { UserDocument } from '../../interfaces/user.interface';
+import { UserDocument } from '../../interfaces';
 
 const userSchema = new mongoose.Schema<UserDocument>(
   {
@@ -37,6 +37,6 @@ userSchema.methods.comparePassword = async function _(posiblePassword: string): 
   return bcrypt.compare(posiblePassword, user.password).catch(() => false);
 };
 
-const UserModel = mongoose.model<UserDocument>('Auth', userSchema);
+const UserModel = mongoose.model<UserDocument>('User', userSchema);
 
 export default UserModel;

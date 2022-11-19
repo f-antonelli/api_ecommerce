@@ -8,7 +8,7 @@ export const loginUserSchema = object({
     password: string({
       required_error: 'Password is required',
     }).min(6, 'Password too short - should be 6 chars minimum'),
-  }),
+  }).strict(),
 });
 
 export type loginUserSchema = TypeOf<typeof loginUserSchema>;

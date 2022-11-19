@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import api from './api';
-import MessageResponse from './interfaces/message-response.interface';
+import { MessageResponse } from './interfaces';
 import { errorHandler } from './middleware/error-handler';
 import { notFound } from './middleware/not-found';
 

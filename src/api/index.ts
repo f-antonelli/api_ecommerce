@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 
-import MessageResponse from '../interfaces/message-response.interface';
+import { MessageResponse } from '../interfaces';
 import auth from './auth/auth.routes';
 import products from './products/products.routes';
 

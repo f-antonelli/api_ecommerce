@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { ProductDocument } from '../../interfaces/product.interface';
+import { ProductDocument } from '../../interfaces';
 
 const productSchema = new mongoose.Schema<ProductDocument>(
   {
@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema<ProductDocument>(
     image: { type: String, required: true },
     name: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
-    stock: { type: Number, required: true, default: 1 },
+    stock: { type: Number, default: 1 },
   },
   {
     timestamps: true,

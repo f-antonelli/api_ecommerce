@@ -9,11 +9,12 @@ export const validateRequest =
         query: req.query,
         params: req.params,
       });
+
       next();
     } catch (error: any) {
       if (error instanceof ZodError) {
         res.status(422);
+        next(error.errors);
       }
-      next(error.message.issues);
     }
   };

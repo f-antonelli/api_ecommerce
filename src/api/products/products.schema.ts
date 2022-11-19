@@ -1,6 +1,6 @@
 import { number, object, string, TypeOf } from 'zod';
 
-export const productsSchema = object({
+const payload = {
   body: object({
     name: string({
       required_error: 'Name is required',
@@ -8,7 +8,7 @@ export const productsSchema = object({
     code: string({
       required_error: 'Code is required',
     }),
-    description: string(),
+    description: string().optional(),
     image: string({
       required_error: 'Image is required',
     }),
@@ -18,7 +18,22 @@ export const productsSchema = object({
     stock: number({
       required_error: 'Stock is required',
     }),
-  }),
-});
+  }).strict(),
+};
 
-export type loginUserSchema = TypeOf<typeof productsSchema>;
+const params = {
+  params: object({
+    id: string({ required_error: 'Product ID is required' }),
+  }),
+};
+
+export const getProductSchema = object({ ...params });
+export const CreateProductSchema = object({ ...payload });
+export const updateProductSchema = object({ ...payload, ...params });
+export const deleteProductSchema = object({ ...params });
+
+// TYPES
+export type createProductSchema = TypeOf<typeof CreateProductSchema>;
+export type updateProductSchema = TypeOf<typeof updateProductSchema>;
+export type getProductSchema = TypeOf<typeof getProductSchema>;
+export type deleteProductSchema = TypeOf<typeof deleteProductSchema>;

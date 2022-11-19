@@ -1,10 +1,137 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-export function getProductsHandler() {}
+import { NextFunction, Request, Response } from 'express';
 
-export function getProductByIdHandler() {}
+import logger from '../../helpers/logger';
+import response from '../../helpers/response';
+import { createProductSchema, updateProductSchema } from './products.schema';
+import {
+  createProduct,
+  deleteProduct,
+  findAllProducts,
+  findProduct,
+  updateProduct,
+} from './products.service';
 
-export function createProductHandler() {}
+export async function getProductsHandler(
+  req: Request<updateProductSchema['params']>,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const products = await findAllProducts();
 
-export function updateProductHandler() {}
+    if (!products) throw new Error('Can not find this products. Please try again');
 
-export function deleteProductHandler() {}
+    response({
+      res,
+      code: 200,
+      body: {
+        products,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function getProductByIdHandler(
+  req: Request<updateProductSchema['params']>,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const product = await findProduct({ _id: id });
+
+    if (!product) throw new Error('Can not find this product. Please try again');
+
+    response({
+      res,
+      code: 200,
+      body: {
+        product,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function createProductHandler(
+  req: Request<{}, {}, createProductSchema['body']>,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { body } = req;
+
+    const product = await createProduct({ ...body });
+
+    response({
+      res,
+      code: 201,
+      message: 'Product created',
+      body: {
+        product,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function updateProductHandler(
+  req: Request<updateProductSchema['params'], {}, updateProductSchema['body']>,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+
+    const updatedProduct = await updateProduct({ _id: id }, update, { new: true });
+
+    if (!updatedProduct) throw new Error('Can not update this product. Please try again');
+
+    response({
+      res,
+      code: 201,
+      message: 'Product updated!',
+      body: {
+        updatedProduct,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function deleteProductHandler(
+  req: Request<updateProductSchema['params']>,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { id } = req.params;
+
+    const deletedProduct = await deleteProduct({ _id: id });
+
+    if (!deletedProduct) throw new Error('Can not delete this product. Please try again');
+
+    response({
+      res,
+      code: 200,
+      message: 'Product deleted!',
+      body: {
+        deletedProduct,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}

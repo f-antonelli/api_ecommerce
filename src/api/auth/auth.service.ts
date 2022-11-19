@@ -2,7 +2,7 @@ import { omit } from 'lodash';
 
 import UserModel from '../../database/models/user.model';
 import logger from '../../helpers/logger';
-import { User } from '../../interfaces/user.interface';
+import { User } from '../../interfaces';
 
 export async function createUser(input: User) {
   try {
