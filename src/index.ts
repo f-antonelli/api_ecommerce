@@ -1,12 +1,10 @@
-import express from 'express';
+import app from './app';
+import connection from './database/connection';
 
-const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3001;
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res.send('Hello world');
-});
+app.listen(port, async () => {
+  console.log(`Listening: http://localhost:${port}`);
 
-app.listen(() => {
-  console.log('Server listining on port:', PORT);
+  await connection();
 });
