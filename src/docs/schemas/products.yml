@@ -1,0 +1,33 @@
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name
+        - code
+        - price
+        - stock
+        - image
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        stock:
+          type: number
+        image:
+          type: string
+        price:
+          type: number
+      example:
+        name: Black table
+        code: X3CM
+        description: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+        image: beautiful-table.jpg
+        price: 32600
+        stock: 13
+  requestBodies:
+    NewProduct:
+      $ref: '#/components/schemas/Product'

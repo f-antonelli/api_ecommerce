@@ -1,0 +1,49 @@
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    Register:
+      type: object
+      required:
+        - username
+        - email
+        - role
+        - password
+        - passwordConfirmation
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        password:
+          type: string
+        passwordConfirmation:
+          type: string
+      example:
+        username: federico
+        email: fede@gmail.com
+        role: user
+        password: asd1SDA1
+        passwordConfirmation: asd1SDA1
+    Login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: fede@gmail.com
+        password: asd1SDA1
+  requestBodies:
+    NewUser:
+      $ref: '#/components/schemas/Register'
+    Login:
+      $ref: '#/components/schemas/Login'
