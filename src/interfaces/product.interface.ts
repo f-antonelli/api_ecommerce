@@ -1,17 +1,8 @@
 import mongoose from 'mongoose';
 
-export interface Product {
-  code: string;
-  description?: string;
-  quantity?: number;
-  total?: number;
-  image: string;
-  name: string;
-  price: number;
-  stock: number;
-}
+import { ProductDTO } from '../api/products/products.dto';
 
-export interface ProductDocument extends Product, mongoose.Document {
+export interface ProductDocument extends ProductDTO, mongoose.Document {
   createdAt: Date;
   updateAt: Date;
 }

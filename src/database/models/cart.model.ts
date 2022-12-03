@@ -4,7 +4,7 @@ import { CartDocument, ItemCartDocument } from '../../interfaces';
 
 const ItemCartSchema = new mongoose.Schema<ItemCartDocument>(
   {
-    productId: {
+    _id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Product',
     },

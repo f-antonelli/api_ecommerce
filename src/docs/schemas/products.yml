@@ -9,8 +9,6 @@ components:
         - stock
         - image
       properties:
-        id:
-          type: string
         name:
           type: string
         description:
@@ -31,3 +29,4 @@ components:
   requestBodies:
     NewProduct:
       $ref: '#/components/schemas/Product'
+      
