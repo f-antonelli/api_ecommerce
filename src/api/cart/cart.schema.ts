@@ -1,13 +1,17 @@
 import { number, object, string, TypeOf } from 'zod';
 
-const params = {
+export const getCartSchema = object({
   params: object({
     userId: string({ required_error: 'User ID is required' }),
   }),
-};
+});
 
-export const getCartSchema = object({ ...params });
-export const createCartSchema = object({ ...params });
+export const createCartSchema = object({
+  params: object({
+    userId: string({ required_error: 'User ID is required' }),
+  }),
+});
+
 export const addProdToCartSchema = object({
   body: object({
     quantity: number(),
