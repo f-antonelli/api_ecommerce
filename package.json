@@ -1,7 +1,7 @@
 {
   "name": "backend_coder",
   "version": "1.0.0",
-  "description": "Backend for NFT marketplace",
+  "description": "Backend for an ecommerce",
   "main": "index.js",
   "husky": {
     "hooks": {
