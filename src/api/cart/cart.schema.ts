@@ -8,6 +8,16 @@ const params = {
 
 export const getCartSchema = object({ ...params });
 export const createCartSchema = object({ ...params });
+export const addProdToCartSchema = object({
+  body: object({
+    quantity: number(),
+  }).strict(),
+  params: object({
+    cartId: string({ required_error: 'Cart ID is required' }),
+    productId: string({ required_error: 'Product ID is required' }),
+  }),
+});
+
 export const updateCartSchema = object({
   body: object({
     productId: string({ required_error: 'Product ID is required' }),
@@ -17,6 +27,7 @@ export const updateCartSchema = object({
     cartId: string({ required_error: 'Cart ID is required' }),
   }),
 });
+
 export const deleteCartSchema = object({
   params: object({
     cartId: string({ required_error: 'Cart ID is required' }),
@@ -24,6 +35,7 @@ export const deleteCartSchema = object({
 });
 
 // TYPES
+export type addProdToCartSchema = TypeOf<typeof addProdToCartSchema>;
 export type createCartCartSchema = TypeOf<typeof createCartSchema>;
 export type updateCartSchema = TypeOf<typeof updateCartSchema>;
 export type getCartSchema = TypeOf<typeof getCartSchema>;

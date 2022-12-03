@@ -16,7 +16,11 @@ export function addProdToCart(
   update: UpdateQuery<CartDocument>,
   options: QueryOptions
 ) {
-  return CartModel.updateOne(query, { $push: { products: update } }, options);
+  return CartModel.updateOne(
+    query,
+    { $inc: { total: update.total }, $push: { products: update } },
+    options
+  );
 }
 
 export function updateProductCart(
@@ -33,10 +37,14 @@ export function updateProductCart(
 
 export function delProdFromCart(
   query: FilterQuery<CartDocument>,
-  product: UpdateQuery<CartDocument>,
+  value: UpdateQuery<CartDocument>,
   options: QueryOptions
 ) {
-  return CartModel.findOneAndUpdate(query, { $pull: { products: { ...product } } }, options);
+  return CartModel.findOneAndUpdate(
+    query,
+    { $inc: { total: -value.total }, $pull: { products: { ...value } } },
+    options
+  );
 }
 
 export function deleteCart(query: FilterQuery<CartDocument>) {

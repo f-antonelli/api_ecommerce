@@ -8,7 +8,7 @@ export const SwaggerOptions = {
       contact: {
         name: 'Federico Antonelli',
         email: 'antonelli@gmail.com',
-        url: 'http://localhost:3001',
+        url: 'https://gentle-blancmange-5f2ebc.netlify.app/',
       },
     },
   },
