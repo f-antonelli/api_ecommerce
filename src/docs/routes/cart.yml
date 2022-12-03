@@ -18,11 +18,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCart"
+                $ref: "#/components/schemas/Cart"
     get:
       security: 
         - BearerAuth: []
-      summary: Get cart by id
+      summary: Get cart by user id
       tags:
         - Cart
       parameters:
@@ -37,7 +37,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCart"
+                $ref: "#/components/schemas/Cart"
   /api/v1/cart/{cartId}/{prodId}:
     post:
       security: 
@@ -62,4 +62,24 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CreateCart"
+                $ref: "#/components/schemas/Cart"
+  /api/v1/cart/{cartId}:
+    delete:
+      security: 
+        - BearerAuth: []
+      summary: Delete product in cart
+      tags:
+        - Cart
+      parameters:
+        - name: cartId
+          in: path
+          description: Cart id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Delete by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"

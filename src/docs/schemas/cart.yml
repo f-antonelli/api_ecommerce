@@ -1,6 +1,6 @@
 components:
   schemas:
-    CreateCart:
+    Cart:
       type: object
       required:
         - userId
@@ -17,4 +17,4 @@ components:
         total: 0
   requestBodies:
     NewCart:
-      $ref: '#/components/schemas/CreateCart'
+      $ref: '#/components/schemas/Cart'
