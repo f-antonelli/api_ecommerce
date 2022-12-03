@@ -1,0 +1,85 @@
+paths:
+  /api/v1/cart/{userId}:
+    post:
+      security: 
+        - BearerAuth: []
+      summary: Create a cart
+      tags:
+        - Cart
+      parameters:
+        - name: userId
+          in: path
+          description: User's id 
+          required: true
+          type: string
+      responses:
+        201:
+          description: Cart created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+    get:
+      security: 
+        - BearerAuth: []
+      summary: Get cart by user id
+      tags:
+        - Cart
+      parameters:
+        - name: userId
+          in: path
+          description: User's id 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Get cart by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+  /api/v1/cart/{cartId}/{prodId}:
+    post:
+      security: 
+        - BearerAuth: []
+      summary: Create a cart
+      tags:
+        - Cart
+      parameters:
+        - name: cartId
+          in: path
+          description: Cart id
+          required: true
+          type: string
+        - name: prodId
+          in: path
+          description: Product id
+          required: true
+          type: string
+      responses:
+        201:
+          description: Add product to cart
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+  /api/v1/cart/{cartId}:
+    delete:
+      security: 
+        - BearerAuth: []
+      summary: Delete product in cart
+      tags:
+        - Cart
+      parameters:
+        - name: cartId
+          in: path
+          description: Cart id
+          required: true
+          type: string
+      responses:
+        200:
+          description: Delete by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"

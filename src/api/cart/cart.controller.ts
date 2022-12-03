@@ -1,21 +1,23 @@
+/* eslint-disable no-underscore-dangle */
 import { NextFunction, Request, Response } from 'express';
 
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
 import { findProduct } from '../products/products.service';
 import {
+  addProdToCartSchema,
   createCartCartSchema,
   deleteCartSchema,
   getCartSchema,
   updateCartSchema,
 } from './cart.schema';
 import {
+  addProdToCart,
   createCart,
   deleteCart,
+  delProdFromCart,
   findCart,
   updateProductCart,
-  addProdToCart,
-  delProdFromCart,
 } from './cart.service';
 
 export async function getCartHandler(
@@ -105,23 +107,37 @@ export async function updateCartHandler(
   }
 }
 
-export async function addProdToCartHandler(req: Request, res: Response, next: NextFunction) {
+export async function addProdToCartHandler(
+  req: Request<addProdToCartSchema['params'], {}, addProdToCartSchema['body']>,
+  res: Response,
+  next: NextFunction
+) {
   try {
-    const { cartId, prodId } = req.params;
+    const { cartId, productId } = req.params;
     const { quantity } = req.body;
 
-    const product = await findProduct({ _id: prodId });
+    const product = await findProduct({ _id: productId });
 
-    if (!product) throw new Error('Can not modify this product. Please try again');
+    if (!product) throw new Error('Can not find this product. Please try again');
 
-    product.quantity = quantity;
-    product.total = product.price * quantity;
+    const cart = await findCart({ _id: cartId });
 
-    const productCart = await addProdToCart({ _id: cartId }, product, { new: true });
+    if (!cart) throw new Error('Can not find this cart. Please try again');
+
+    //  check if product exist in cart
+    const productExist = cart.products.find((prod) => prod._id.toString() === productId);
+
+    if (productExist) throw new Error('Product already exists in cart');
+
+    const productCart = await addProdToCart(
+      { _id: cartId },
+      { _id: productId, quantity, total: product.price * quantity },
+      { upsert: true }
+    );
 
     response({
       res,
-      code: 200,
+      code: 201,
       message: 'Cart modified!',
       body: { productCart },
     });
@@ -159,7 +175,19 @@ export async function delProdFromCartHandler(req: Request, res: Response, next: 
   try {
     const { cartId, prodId } = req.params;
 
-    const productCart = await delProdFromCart({ _id: cartId }, { _id: prodId }, { new: true });
+    const cart = await findCart({ _id: cartId });
+
+    if (!cart) throw new Error('Can not find this cart. Please try again');
+
+    const productToDelete = cart.products.find((prod) => prod._id.toString() === prodId);
+
+    if (!productToDelete) throw new Error('Product does not exists in this cart.');
+
+    const productCart = await delProdFromCart(
+      { _id: cartId },
+      { total: productToDelete.total, _id: prodId },
+      { new: true }
+    );
 
     response({
       res,

@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
+import config from '../config';
 import logger from '../helpers/logger';
-import { DB } from './config/config';
 
-const URI = `mongodb+srv://${DB.username}:${DB.password}@${DB.cluster}/${DB.database}?retryWrites=true&w=majority`;
+const URI = `mongodb+srv://${config.MONGODB_USER!}:${config.MONGODB_PASSWORD!}@${config.MONGODB_CLUSTER!}/${config.MONGODB_DB!}?retryWrites=true&w=majority`;
 
 const connection = async () => {
   try {

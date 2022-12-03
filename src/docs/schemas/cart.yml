@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Cart:
+      type: object
+      required:
+        - userId
+      properties:
+        userId:
+          type: string
+        products:
+          type: array
+        total:
+          type: number
+      example:
+        userId: 507f1f77bcf86cd799439011
+        products: []
+        total: 0
+  requestBodies:
+    NewCart:
+      $ref: '#/components/schemas/Cart'

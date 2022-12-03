@@ -1,5 +1,4 @@
 import cors from 'cors';
-import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -8,8 +7,6 @@ import api from './api';
 import { MessageResponse } from './interfaces';
 import { errorHandler } from './middleware/error-handler';
 import { notFound } from './middleware/not-found';
-
-dotenv.config();
 
 const app = express();
 

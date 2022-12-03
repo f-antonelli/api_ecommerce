@@ -1,0 +1,100 @@
+paths:
+  /api/v1/products:
+    post:
+      security: 
+        - BearerAuth: []
+      summary: Add a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/NewProduct"
+      responses:
+        201:
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    get:
+      security: 
+        - BearerAuth: []
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        200:
+          description: All products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /api/v1/products/{id}:
+    get:
+      security: 
+        - BearerAuth: []
+      summary: Get product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product's id 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Product by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    put:
+      security: 
+        - BearerAuth: []
+      summary: Update product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product's id 
+          required: true
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/requestBodies/NewProduct"
+      responses:
+        201:
+          description: Update by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    delete:
+      security: 
+        - BearerAuth: []
+      summary: Delete product by id
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          description: Product's id 
+          required: true
+          type: string
+      responses:
+        200:
+          description: Delete by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"

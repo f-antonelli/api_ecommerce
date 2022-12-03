@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
+import config from '../../config';
 import { UserDocument } from '../../interfaces';
 
 const userSchema = new mongoose.Schema<UserDocument>(
@@ -22,7 +23,7 @@ userSchema.pre('save', async function _(next) {
     next();
   }
 
-  const salt = await bcrypt.genSalt(+process.env.SALT!);
+  const salt = await bcrypt.genSalt(+config.SALT!);
 
   const hash = bcrypt.hashSync(user.password, salt);
 
