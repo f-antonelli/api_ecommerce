@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { UserDTO } from '../api/user/user.dto';
+import { UserDTO } from '../api/users/users.dto';
 
 export interface UserDocument extends UserDTO, mongoose.Document {
   comparePassword(posiblePassword: string): Promise<Boolean>;
