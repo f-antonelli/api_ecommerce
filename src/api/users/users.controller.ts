@@ -5,7 +5,7 @@ import response from '../../helpers/response';
 import { delUserSchema, getUserSchema, updateUserSchema } from './users.schema';
 import { deleteUser, findAllUsers, findUser, updateUser } from './users.service';
 
-export async function getUserHandler(req: Request, res: Response, next: NextFunction) {
+export async function getUsersHandler(req: Request, res: Response, next: NextFunction) {
   try {
     const users = await findAllUsers();
 
@@ -24,7 +24,7 @@ export async function getUserHandler(req: Request, res: Response, next: NextFunc
   }
 }
 
-export async function getUsersHandler(
+export async function getUserHandler(
   req: Request<getUserSchema['params']>,
   res: Response,
   next: NextFunction
