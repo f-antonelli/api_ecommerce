@@ -7,6 +7,7 @@ import { SwaggerOptions } from '../swagger.config';
 import auth from './auth/auth.routes';
 import cart from './cart/cart.routes';
 import products from './products/products.routes';
+import users from './users/users.routes';
 
 const router = express.Router();
 const specs = swaggerDoc(SwaggerOptions);
@@ -27,5 +28,6 @@ router.use('/docs', serve, setup(specs));
 router.use('/auth', auth);
 router.use('/products', products);
 router.use('/cart', cart);
+router.use('/users', users);
 
 export default router;

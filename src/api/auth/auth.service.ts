@@ -1,6 +1,6 @@
 import { omit } from 'lodash';
 
-import UserModel from '../../database/models/user.model';
+import UserModel from '../../database/models/users.model';
 import logger from '../../helpers/logger';
 import { User } from '../../interfaces';
 

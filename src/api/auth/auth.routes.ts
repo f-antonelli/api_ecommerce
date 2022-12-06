@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { validateRequest } from '../../middleware/validate-request';
-import { createUserSchema } from '../user/user.schema';
+import { createUserSchema } from '../users/users.schema';
 import * as AuthHandlers from './auth.controller';
 import { loginUserSchema } from './auth.schema';
 

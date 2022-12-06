@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from 'zod';
 
-export const createUserSchema = object({
+const payload = {
   body: object({
     username: string({
       required_error: 'Name is required',
@@ -19,6 +19,31 @@ export const createUserSchema = object({
     message: 'Passwords do not match',
     path: ['passwordConfirmation'],
   }),
+};
+
+const params = {
+  params: object({
+    id: string({ required_error: 'Product ID is required' }),
+  }),
+};
+
+export const createUserSchema = object({ ...payload });
+export const getUserSchema = object({ ...params });
+export const delUserSchema = object({ ...params });
+
+export const updateUserSchema = object({
+  body: object({
+    username: string({
+      required_error: 'Name is required',
+    }),
+    email: string({
+      required_error: 'Email is required',
+    }).email('Not a valid email'),
+  }),
+  ...params,
 });
 
 export type createUserSchema = Omit<TypeOf<typeof createUserSchema>, 'body.passwordConfirmation'>;
+export type getUserSchema = TypeOf<typeof getUserSchema>;
+export type updateUserSchema = TypeOf<typeof updateUserSchema>;
+export type delUserSchema = TypeOf<typeof delUserSchema>;
