@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
-import { createProductSchema, updateProductSchema } from './products.schema';
+import { createProductSchema, getProductSchema, updateProductSchema } from './products.schema';
 import {
   createProduct,
   deleteProduct,
@@ -11,11 +11,7 @@ import {
   updateProduct,
 } from './products.service';
 
-export async function getProductsHandler(
-  req: Request<updateProductSchema['params']>,
-  res: Response,
-  next: NextFunction
-) {
+export async function getProductsHandler(req: Request, res: Response, next: NextFunction) {
   try {
     const products = await findAllProducts();
 
@@ -35,7 +31,7 @@ export async function getProductsHandler(
 }
 
 export async function getProductByIdHandler(
-  req: Request<updateProductSchema['params']>,
+  req: Request<getProductSchema['params']>,
   res: Response,
   next: NextFunction
 ) {
