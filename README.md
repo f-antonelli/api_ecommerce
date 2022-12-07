@@ -30,6 +30,10 @@ yarn install
 yarn run dev
 ```
 
+## DB Diagram
+
+![Diagram](./docs//diagram.jpg)
+
 ## Tech Stack
 
 **Server:** Node, Express, MongoDB, Typescript, Zod, Eslint/prettier, Husky
