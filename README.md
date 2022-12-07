@@ -2,6 +2,20 @@
 
 MERN Ecommerce v2 using typescript, design patterns and SOLID. Documented with Swagger. 
 
+## API structure
+    .
+    ├── husky                   # Better commits
+    ├── docs                    # Documentation files 
+    ├── src                     # Source files
+        └── api                 # Modular structure    
+            ├── auth              
+            ├── cart               
+            ├── products        
+            └── users         
+    ├── .env                    # Environment variables
+    ├── .eslint                 # Format code
+    └── README.md
+
 ## Swagger
 
 Check endpoints with SWAGGER UI
