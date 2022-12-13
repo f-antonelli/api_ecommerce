@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
+import { HttpError } from '../../helpers/http-error';
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
 import { createProductSchema, getProductSchema, updateProductSchema } from './products.schema';
@@ -40,7 +41,7 @@ export async function getProductByIdHandler(
 
     const product = await findProduct({ _id: id });
 
-    if (!product) throw new Error('Can not find this product. Please try again');
+    if (!product) throw new HttpError('Can not find this product. Please try again', 404);
 
     response({
       res,
@@ -65,7 +66,7 @@ export async function createProductHandler(
 
     const product = await createProduct({ ...body });
 
-    if (!product) throw new Error('Can not create this product. Please try again');
+    if (!product) throw new HttpError('Can not create this product. Please try again', 500);
 
     response({
       res,
