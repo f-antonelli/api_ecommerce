@@ -3,6 +3,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 
+import config from '../../config';
 import { signJwt } from '../../helpers/jwt';
 import server from '../../helpers/server';
 import { createProduct } from '../products/products.service';
@@ -10,19 +11,19 @@ import { createProduct } from '../products/products.service';
 const app = server();
 
 export const productPayload = {
-  code: '10293',
-  name: 'djsakhd312k',
-  description: 'asd32e',
-  image: 'sadas12.jpg',
-  price: 12312,
-  stock: 124122,
+  code: config.TEST_CODE,
+  name: config.TEST_NAME,
+  description: config.TEST_DESCRIPTION,
+  image: config.TEST_IMAGE,
+  price: config.TEST_PRICE,
+  stock: config.TEST_STOCK,
 };
 
 export const userPayload = {
-  _id: '638fd07614e71ebca1f03735',
-  email: 'eelke@gmail.com',
-  role: 'user',
-  username: 'eelke',
+  _id: config.TEST_ID,
+  email: config.TEST_EMAIL,
+  role: config.TEST_ROLE,
+  username: config.TEST_USERNAME,
   createdAt: '2022-12-06T23:29:58.186Z',
   updatedAt: '2022-12-06T23:29:58.186Z',
   __v: 0,
@@ -74,7 +75,7 @@ describe('product', () => {
 
     describe('given the user is logged in', () => {
       it('should return a 201 and create the product', async () => {
-        const jwt = signJwt({ ...userPayload }, { expiresIn: '3hr' });
+        const jwt = signJwt({ ...userPayload }, { expiresIn: config.EXPIRES });
 
         const { body, statusCode } = await supertest(app)
           .post('/api/v1/products')

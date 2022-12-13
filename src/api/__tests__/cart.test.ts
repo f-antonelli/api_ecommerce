@@ -3,16 +3,17 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import supertest from 'supertest';
 
+import config from '../../config';
 import { signJwt } from '../../helpers/jwt';
 import server from '../../helpers/server';
 
 const app = server();
 
 export const userPayload = {
-  _id: '638fd07614e71ebca1f03735',
-  email: 'eelke@gmail.com',
-  role: 'user',
-  username: 'eelke',
+  _id: config.TEST_ID,
+  email: config.TEST_EMAIL,
+  role: config.TEST_ROLE,
+  username: config.TEST_USERNAME,
   createdAt: '2022-12-06T23:29:58.186Z',
   updatedAt: '2022-12-06T23:29:58.186Z',
   __v: 0,
@@ -35,7 +36,7 @@ describe('cart', () => {
       const jwt = signJwt({ ...userPayload }, { expiresIn: '3hr' });
 
       const { statusCode } = await supertest(app)
-        .post(`/api/v1/cart/${userPayload._id}`)
+        .post(`/api/v1/cart/${userPayload._id!}`)
         .set('Authorization', `Bearer ${jwt}`);
 
       expect(statusCode).toBe(201);
@@ -45,7 +46,7 @@ describe('cart', () => {
       const jwt = signJwt({ ...userPayload }, { expiresIn: '3hr' });
 
       const { statusCode } = await supertest(app)
-        .post(`/api/v1/cart/${userPayload._id}`)
+        .post(`/api/v1/cart/${userPayload._id!}`)
         .set('Authorization', `Bearer ${jwt}`);
 
       expect(statusCode).toBe(500);
