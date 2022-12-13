@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { NextFunction, Request, Response } from 'express';
 
+import { HttpError } from '../../helpers/http-error';
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
 import { findProduct } from '../products/products.service';
@@ -30,7 +31,7 @@ export async function getCartHandler(
 
     const cart = await findCart({ userId });
 
-    if (!cart) throw new Error('Can not find this cart. Please try again');
+    if (!cart) throw new HttpError('Can not find this cart. Please try again', 404);
 
     response({
       res,
@@ -50,9 +51,13 @@ export async function createCartHandler(
   try {
     const { userId } = req.params;
 
+    const hasCart = await findCart({ userId });
+
+    if (hasCart) throw new HttpError('User already has a cart. Can not create another', 500);
+
     const cart = await createCart(userId);
 
-    if (!cart) throw new Error('Can not create this cart. Please try again');
+    if (!cart) throw new HttpError('Can not create this cart. Please try again', 500);
 
     response({
       res,
@@ -77,11 +82,11 @@ export async function updateCartHandler(
 
     const product = await findProduct({ _id: productId });
 
-    if (!product) throw new Error('Can not modify this product. Please try again');
+    if (!product) throw new HttpError('Can not modify this product. Please try again', 204);
 
     const cart = await findCart({ _id: cartId });
 
-    if (!cart) throw new Error('Can not modify this cart. Please try again');
+    if (!cart) throw new HttpError('Can not modify this cart. Please try again', 204);
 
     const updatedCart = await updateProductCart(
       { _id: productId },
@@ -91,8 +96,8 @@ export async function updateCartHandler(
       }
     );
 
-    if (!updatedCart) throw new Error('Can not update this cart. Please try again');
-    console.log(updatedCart);
+    if (!updatedCart) throw new HttpError('Can not update this cart. Please try again', 204);
+
     response({
       res,
       code: 201,
@@ -118,16 +123,16 @@ export async function addProdToCartHandler(
 
     const product = await findProduct({ _id: productId });
 
-    if (!product) throw new Error('Can not find this product. Please try again');
+    if (!product) throw new HttpError('Can not find this product. Please try again', 404);
 
     const cart = await findCart({ _id: cartId });
 
-    if (!cart) throw new Error('Can not find this cart. Please try again');
+    if (!cart) throw new HttpError('Can not find this cart. Please try again', 404);
 
     //  check if product exist in cart
     const productExist = cart.products.find((prod) => prod._id.toString() === productId);
 
-    if (productExist) throw new Error('Product already exists in cart');
+    if (productExist) throw new HttpError('Product already exists in cart', 409);
 
     const productCart = await addProdToCart(
       { _id: cartId },
@@ -157,7 +162,7 @@ export async function deleteCartHandler(
 
     const cartDeleted = await deleteCart({ _id: cartId });
 
-    if (!cartDeleted) throw new Error('Can not delete this cart. Please try again');
+    if (!cartDeleted) throw new HttpError('Can not delete this cart. Please try again', 500);
 
     response({
       res,
@@ -177,11 +182,11 @@ export async function delProdFromCartHandler(req: Request, res: Response, next: 
 
     const cart = await findCart({ _id: cartId });
 
-    if (!cart) throw new Error('Can not find this cart. Please try again');
+    if (!cart) throw new HttpError('Can not find this cart. Please try again', 404);
 
     const productToDelete = cart.products.find((prod) => prod._id.toString() === prodId);
 
-    if (!productToDelete) throw new Error('Product does not exists in this cart.');
+    if (!productToDelete) throw new HttpError('Product does not exists in this cart.', 404);
 
     const productCart = await delProdFromCart(
       { _id: cartId },
