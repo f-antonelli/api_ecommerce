@@ -37,4 +37,6 @@ router.delete(
   ProductHandler.deleteProductHandler
 );
 
+router.delete('/', ProductHandler.deleteProductsHandler);
+
 export default router;
