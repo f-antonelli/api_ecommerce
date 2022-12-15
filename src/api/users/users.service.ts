@@ -22,3 +22,7 @@ export function updateUser(
 export function deleteUser(query: FilterQuery<UserDocument>) {
   return UserModel.findOneAndDelete(query).select('-password');
 }
+
+export function deleteUsers() {
+  return UserModel.deleteMany();
+}

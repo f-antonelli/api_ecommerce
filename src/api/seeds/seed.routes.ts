@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { executeSeedHandler } from './seed.controller';
+import { productSeedHandler } from './seed.controller';
 
 const router = Router();
 
-router.get('/products', executeSeedHandler);
+router.get('/products', productSeedHandler);
 
 export default router;

@@ -5,7 +5,7 @@ import { Product } from '../../interfaces';
 import { deleteProducts } from '../products/products.service';
 import { products } from './data';
 
-export async function executeSeed() {
+export async function executeProductSeed() {
   await deleteProducts();
 
   const seedProducts = products;

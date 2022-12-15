@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
-import { executeSeed } from './seed.service';
+import { executeProductSeed } from './seed.service';
 
-export async function executeSeedHandler(req: Request, res: Response, next: NextFunction) {
+export async function productSeedHandler(req: Request, res: Response, next: NextFunction) {
   try {
-    await executeSeed();
+    await executeProductSeed();
 
     response({
       res,

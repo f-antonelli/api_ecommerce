@@ -1,12 +1,12 @@
-export interface Products {
+export type Product = {
   code: string;
   name: string;
   price: number;
   image: string;
   stock: number;
-}
+};
 
-export const products: Products[] = [
+export const products: Product[] = [
   {
     code: '4346',
     name: 'Tea - Herbal Orange Spice',
