@@ -7,6 +7,7 @@ import { createProductSchema, getProductSchema, updateProductSchema } from './pr
 import {
   createProduct,
   deleteProduct,
+  deleteProducts,
   findAllProducts,
   findProduct,
   updateProduct,
@@ -127,6 +128,24 @@ export async function deleteProductHandler(
       message: 'Product deleted!',
       body: {
         deletedProduct,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function deleteProductsHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const products = await deleteProducts();
+
+    response({
+      res,
+      code: 200,
+      message: 'Products deleted!',
+      body: {
+        products,
       },
     });
   } catch (error) {

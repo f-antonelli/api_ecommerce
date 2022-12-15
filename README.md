@@ -7,10 +7,12 @@ MERN Ecommerce v2 using typescript, design patterns and SOLID. Documented with S
     ├── husky                   # Better commits
     ├── docs                    # Documentation files 
     ├── src                     # Source files
-        └── api                 # Modular structure    
+        └── api                 # Modular structure
+            ├── __tests__      
             ├── auth              
             ├── cart               
-            ├── products        
+            ├── products  
+            ├── seeds       
             └── users         
     ├── .env                    # Environment variables
     ├── .eslint                 # Format code
@@ -21,7 +23,7 @@ MERN Ecommerce v2 using typescript, design patterns and SOLID. Documented with S
 Check endpoints with SWAGGER UI
 
 ```
-api/v1/docs
+/api/v1/docs
 ```
 
 ## Run project
@@ -42,6 +44,23 @@ yarn install
 
 ```
 yarn run dev
+```
+
+#### 6. Execute seeds
+
+```
+GET /api/v1/seeds/products
+```
+
+```
+GET /api/v1/seeds/users
+```
+
+##  Fake USER for test the app
+
+```
+password: o6zoSZpKva1
+email: akarlicek0@sina.com.cn
 ```
 
 ## DB Diagram
