@@ -7,7 +7,7 @@ import { SwaggerOptions } from '../swagger.config';
 import auth from './auth/auth.routes';
 import cart from './cart/cart.routes';
 import products from './products/products.routes';
-import seeds from './seed/seed.routes';
+import seeds from './seeds/seed.routes';
 import users from './users/users.routes';
 
 const router = express.Router();
