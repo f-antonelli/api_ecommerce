@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import logger from '../../helpers/logger';
 import response from '../../helpers/response';
 import { delUserSchema, getUserSchema, updateUserSchema } from './users.schema';
-import { deleteUser, findAllUsers, findUser, updateUser } from './users.service';
+import { deleteUser, deleteUsers, findAllUsers, findUser, updateUser } from './users.service';
 
 export async function getUsersHandler(req: Request, res: Response, next: NextFunction) {
   try {
@@ -94,6 +94,24 @@ export async function deleteUserHandler(
       message: 'User deleted!',
       body: {
         user,
+      },
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+}
+
+export async function deleteUsersHandler(req: Request, res: Response, next: NextFunction) {
+  try {
+    const users = await deleteUsers();
+
+    response({
+      res,
+      code: 200,
+      message: 'Users deleted!',
+      body: {
+        users,
       },
     });
   } catch (error) {

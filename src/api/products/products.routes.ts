@@ -2,7 +2,14 @@ import { Router } from 'express';
 
 import { checkAuth } from '../../middleware/check-auth';
 import { validateRequest } from '../../middleware/validate-request';
-import * as ProductHandler from './products.controller';
+import {
+  createProductHandler,
+  deleteProductHandler,
+  deleteProductsHandler,
+  getProductByIdHandler,
+  getProductsHandler,
+  updateProductHandler,
+} from './products.controller';
 import {
   createProductSchema,
   deleteProductSchema,
@@ -13,28 +20,17 @@ import {
 const router = Router();
 
 // GET
-router.get('/', ProductHandler.getProductsHandler);
-router.get('/:id', validateRequest(getProductSchema), ProductHandler.getProductByIdHandler);
+router.get('/', getProductsHandler);
+router.get('/:id', validateRequest(getProductSchema), getProductByIdHandler);
 
 // POST
-router.post(
-  '/',
-  [checkAuth, validateRequest(createProductSchema)],
-  ProductHandler.createProductHandler
-);
+router.post('/', [checkAuth, validateRequest(createProductSchema)], createProductHandler);
 
 // UPDATE
-router.put(
-  '/:id',
-  [checkAuth, validateRequest(updateProductSchema)],
-  ProductHandler.updateProductHandler
-);
+router.put('/:id', [checkAuth, validateRequest(updateProductSchema)], updateProductHandler);
 
 // DELETE
-router.delete(
-  '/:id',
-  [checkAuth, validateRequest(deleteProductSchema)],
-  ProductHandler.deleteProductHandler
-);
+router.delete('/:id', [checkAuth, validateRequest(deleteProductSchema)], deleteProductHandler);
+router.delete('/', checkAuth, deleteProductsHandler);
 
 export default router;

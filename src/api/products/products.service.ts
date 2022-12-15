@@ -29,3 +29,7 @@ export function updateProduct(
 export function deleteProduct(query: FilterQuery<ProductDocument>) {
   return ProductModel.findOneAndDelete(query);
 }
+
+export function deleteProducts() {
+  return ProductModel.deleteMany();
+}
